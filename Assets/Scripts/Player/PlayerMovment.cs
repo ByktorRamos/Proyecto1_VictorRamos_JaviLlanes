@@ -17,10 +17,13 @@ public class PlayerMovment : MonoBehaviour
     public float fuerzaSalto;
     public LayerMask suelo;
 
+    private Animator anim;
+
     private bool mirandoDerecha = true;
     // Start is called before the first frame update
     void Start()
     {
+        anim = GetComponent<Animator>();
         rigidbody = GetComponent<Rigidbody2D>();
         _boxCollider = GetComponent<BoxCollider2D>();
 
@@ -37,9 +40,23 @@ public class PlayerMovment : MonoBehaviour
     {
         _desiredDirection.x = Input.GetAxis(_horizontalInputAxis);
 
+        AnimacionRun(_desiredDirection.x);
+
         rigidbody.velocity = new Vector3(_desiredDirection.x * speed,rigidbody.velocity.y);
 
         Orientacion(_desiredDirection.x);
+    }
+
+    void AnimacionRun(float inputmov)
+    {
+        if (inputmov != 0f)
+        {
+            anim.SetBool("Run", true);
+        }
+        else
+        {
+            anim.SetBool("Run", false);
+        }
     }
       
     // Cambia la orientacion hacia donde mira el personaje
@@ -47,6 +64,7 @@ public class PlayerMovment : MonoBehaviour
     {
         if((mirandoDerecha == true && desiredDirection<0)|| (mirandoDerecha==false && desiredDirection > 0))
         {
+            
             mirandoDerecha=!mirandoDerecha;
             transform.localScale = new Vector2(-transform.localScale.x,transform.localScale.y);
         }
