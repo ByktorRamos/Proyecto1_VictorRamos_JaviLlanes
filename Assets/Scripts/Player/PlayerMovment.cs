@@ -43,6 +43,7 @@ public class PlayerMovment : MonoBehaviour
         AnimacionRun(_desiredDirection.x);
 
         rigidbody.velocity = new Vector3(_desiredDirection.x * speed,rigidbody.velocity.y);
+      
 
         Orientacion(_desiredDirection.x);
     }
@@ -59,23 +60,13 @@ public class PlayerMovment : MonoBehaviour
         }
     }
       
-    // Cambia la orientacion hacia donde mira el personaje
-    void Orientacion(float desiredDirection)
-    {
-        if((mirandoDerecha == true && desiredDirection<0)|| (mirandoDerecha==false && desiredDirection > 0))
-        {
-            
-            mirandoDerecha=!mirandoDerecha;
-            transform.localScale = new Vector2(-transform.localScale.x,transform.localScale.y);
-        }
-    }
-
+   
     bool TocandoSuelo()
     {
         Vector2 size = new Vector2(_boxCollider.bounds.size.x, _boxCollider.bounds.size.y);
         // Caja para detectar si el jugador toca con el suelo o no
         RaycastHit2D raycastbox= Physics2D.BoxCast(_boxCollider.bounds.center, size,0f,Vector2.down,0.2f,suelo);
-
+        Debug.Log(raycastbox);
         return raycastbox.collider != null;
     }
 
@@ -86,4 +77,17 @@ public class PlayerMovment : MonoBehaviour
             rigidbody.AddForce(Vector2.up * fuerzaSalto,ForceMode2D.Impulse);
         }
     }
+
+    // Cambia la orientacion hacia donde mira el personaje
+
+    void Orientacion(float desiredDirection)
+    {
+        if ((mirandoDerecha == true && desiredDirection < 0) || (mirandoDerecha == false && desiredDirection > 0))
+        {
+
+            mirandoDerecha = !mirandoDerecha;
+            transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
+        }
+    }
+
 }
