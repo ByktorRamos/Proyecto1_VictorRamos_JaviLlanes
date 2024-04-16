@@ -66,7 +66,7 @@ public class PlayerMovment : MonoBehaviour
         Vector2 size = new Vector2(_boxCollider.bounds.size.x, _boxCollider.bounds.size.y);
         // Caja para detectar si el jugador toca con el suelo o no
         RaycastHit2D raycastbox= Physics2D.BoxCast(_boxCollider.bounds.center, size,0f,Vector2.down,0.2f,suelo);
-        Debug.Log(raycastbox);
+       
         return raycastbox.collider != null;
     }
 
