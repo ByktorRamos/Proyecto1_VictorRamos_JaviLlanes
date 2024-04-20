@@ -17,10 +17,13 @@ public class PlayerMovment : MonoBehaviour
     public float fuerzaSalto;
     public LayerMask suelo;
 
+    private Animator anim;
+
     private bool mirandoDerecha = true;
     // Start is called before the first frame update
     void Start()
     {
+        anim = GetComponent<Animator>();
         rigidbody = GetComponent<Rigidbody2D>();
         _boxCollider = GetComponent<BoxCollider2D>();
 
@@ -37,27 +40,33 @@ public class PlayerMovment : MonoBehaviour
     {
         _desiredDirection.x = Input.GetAxis(_horizontalInputAxis);
 
+        AnimacionRun(_desiredDirection.x);
+
         rigidbody.velocity = new Vector3(_desiredDirection.x * speed,rigidbody.velocity.y);
+      
 
         Orientacion(_desiredDirection.x);
     }
-      
-    // Cambia la orientacion hacia donde mira el personaje
-    void Orientacion(float desiredDirection)
+
+    void AnimacionRun(float inputmov)
     {
-        if((mirandoDerecha == true && desiredDirection<0)|| (mirandoDerecha==false && desiredDirection > 0))
+        if (inputmov != 0f)
         {
-            mirandoDerecha=!mirandoDerecha;
-            transform.localScale = new Vector2(-transform.localScale.x,transform.localScale.y);
+            anim.SetBool("Run", true);
+        }
+        else
+        {
+            anim.SetBool("Run", false);
         }
     }
-
+      
+   
     bool TocandoSuelo()
     {
         Vector2 size = new Vector2(_boxCollider.bounds.size.x, _boxCollider.bounds.size.y);
         // Caja para detectar si el jugador toca con el suelo o no
         RaycastHit2D raycastbox= Physics2D.BoxCast(_boxCollider.bounds.center, size,0f,Vector2.down,0.2f,suelo);
-
+       
         return raycastbox.collider != null;
     }
 
@@ -68,4 +77,17 @@ public class PlayerMovment : MonoBehaviour
             rigidbody.AddForce(Vector2.up * fuerzaSalto,ForceMode2D.Impulse);
         }
     }
+
+    // Cambia la orientacion hacia donde mira el personaje
+
+    void Orientacion(float desiredDirection)
+    {
+        if ((mirandoDerecha == true && desiredDirection < 0) || (mirandoDerecha == false && desiredDirection > 0))
+        {
+
+            mirandoDerecha = !mirandoDerecha;
+            transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
+        }
+    }
+
 }
