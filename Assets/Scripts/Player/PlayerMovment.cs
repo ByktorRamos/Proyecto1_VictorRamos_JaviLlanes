@@ -6,8 +6,8 @@ public class PlayerMovment : MonoBehaviour
 {
     [SerializeField]
     private string _horizontalInputAxis = "Horizontal";
-    //[SerializeField]
-    //private string _verticalInputAxis = "Vertical";
+    [SerializeField]
+    private string _verticalInputAxis = "Vertical";
     private Vector3 _desiredDirection = Vector3.zero;
 
 
@@ -39,6 +39,7 @@ public class PlayerMovment : MonoBehaviour
     void Movimiento()
     {
         _desiredDirection.x = Input.GetAxis(_horizontalInputAxis);
+        _desiredDirection.y = Input.GetAxis(_verticalInputAxis);
 
         AnimacionRun(_desiredDirection.x);
 
@@ -60,6 +61,7 @@ public class PlayerMovment : MonoBehaviour
         }
     }
 
+    // Cambia la orientacion hacia donde mira el personaje
     void Orientacion(float desiredDirection)
     {
         if ((mirandoDerecha == true && desiredDirection < 0) || (mirandoDerecha == false && desiredDirection > 0))
@@ -88,8 +90,16 @@ public class PlayerMovment : MonoBehaviour
         }
     }
 
-    // Cambia la orientacion hacia donde mira el personaje
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Stairs")
+        {
+            _desiredDirection.y = Input.GetAxis(_verticalInputAxis);
+           
+            rigidbody.velocity = new Vector3(rigidbody.velocity.x, _desiredDirection.y * speed);
+            Debug.Log("Choca");
+        }
+    }
 
-    
 
 }
