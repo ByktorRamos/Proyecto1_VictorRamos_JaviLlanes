@@ -59,8 +59,18 @@ public class PlayerMovment : MonoBehaviour
             anim.SetBool("Run", false);
         }
     }
-      
-   
+
+    void Orientacion(float desiredDirection)
+    {
+        if ((mirandoDerecha == true && desiredDirection < 0) || (mirandoDerecha == false && desiredDirection > 0))
+        {
+
+            mirandoDerecha = !mirandoDerecha;
+            transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
+        }
+    }
+
+
     bool TocandoSuelo()
     {
         Vector2 size = new Vector2(_boxCollider.bounds.size.x, _boxCollider.bounds.size.y);
@@ -80,14 +90,6 @@ public class PlayerMovment : MonoBehaviour
 
     // Cambia la orientacion hacia donde mira el personaje
 
-    void Orientacion(float desiredDirection)
-    {
-        if ((mirandoDerecha == true && desiredDirection < 0) || (mirandoDerecha == false && desiredDirection > 0))
-        {
-
-            mirandoDerecha = !mirandoDerecha;
-            transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
-        }
-    }
+    
 
 }

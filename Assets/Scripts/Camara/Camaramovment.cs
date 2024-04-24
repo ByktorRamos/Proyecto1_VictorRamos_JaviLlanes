@@ -5,11 +5,11 @@ using UnityEngine;
 public class Camaramovment : MonoBehaviour
 {
     public GameObject player;
-    private Transform camara;
+   
     // Start is called before the first frame update
     void Start()
     {
-      // camara= GetComponent<Transform>();
+
     }
 
     // Update is called once per frame
