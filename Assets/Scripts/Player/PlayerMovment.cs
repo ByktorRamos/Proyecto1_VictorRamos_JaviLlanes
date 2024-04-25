@@ -10,30 +10,44 @@ public class PlayerMovment : MonoBehaviour
     private string _verticalInputAxis = "Vertical";
     private Vector3 _desiredDirection = Vector3.zero;
 
+    private bool climbing;
+    private float gravedadinicial;
+    public float speedClimb;
+
 
     private BoxCollider2D _boxCollider;
-    private new Rigidbody2D rigidbody;
+    private Rigidbody2D _rigidbody;
     public float speed;
     public float fuerzaSalto;
     public LayerMask suelo;
 
-    private Animator anim;
+    private Animator _anim;
 
     private bool mirandoDerecha = true;
+
+
+
+
+
     // Start is called before the first frame update
     void Start()
     {
-        anim = GetComponent<Animator>();
-        rigidbody = GetComponent<Rigidbody2D>();
+        _anim = GetComponent<Animator>();
+        _rigidbody = GetComponent<Rigidbody2D>();
         _boxCollider = GetComponent<BoxCollider2D>();
+        gravedadinicial = _rigidbody.gravityScale;
 
     }
 
     // Update is called once per frame
     void Update()
     {
+        _anim.SetFloat("VelocidadY",_rigidbody.velocity.y);
+
+
         Movimiento();
         Salto();
+        Escalar();
     }
 
     void Movimiento()
@@ -43,7 +57,7 @@ public class PlayerMovment : MonoBehaviour
 
         AnimacionRun(_desiredDirection.x);
 
-        rigidbody.velocity = new Vector3(_desiredDirection.x * speed,rigidbody.velocity.y);
+        _rigidbody.velocity = new Vector3(_desiredDirection.x * speed,_rigidbody.velocity.y);
       
 
         Orientacion(_desiredDirection.x);
@@ -53,22 +67,24 @@ public class PlayerMovment : MonoBehaviour
     {
         if (inputmov != 0f)
         {
-            anim.SetBool("Run", true);
+            _anim.SetBool("Run", true);
         }
         else
         {
-            anim.SetBool("Run", false);
+            _anim.SetBool("Run", false);
         }
     }
 
     // Cambia la orientacion hacia donde mira el personaje
     void Orientacion(float desiredDirection)
     {
+
         if ((mirandoDerecha == true && desiredDirection < 0) || (mirandoDerecha == false && desiredDirection > 0))
         {
-
-            mirandoDerecha = !mirandoDerecha;
-            transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
+            mirandoDerecha= !mirandoDerecha;
+            Vector3 escala = transform.localScale;
+            escala.x *= -1;
+            transform.localScale = escala;
         }
     }
 
@@ -86,8 +102,10 @@ public class PlayerMovment : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Space) && TocandoSuelo()) 
         {
-            rigidbody.AddForce(Vector2.up * fuerzaSalto,ForceMode2D.Impulse);
+            _rigidbody.AddForce(Vector2.up * fuerzaSalto,ForceMode2D.Impulse);
+            _anim.SetTrigger("Jump");
         }
+        _anim.SetBool("OnGround", TocandoSuelo());
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -96,10 +114,33 @@ public class PlayerMovment : MonoBehaviour
         {
             _desiredDirection.y = Input.GetAxis(_verticalInputAxis);
            
-            rigidbody.velocity = new Vector3(rigidbody.velocity.x, _desiredDirection.y * speed);
+            _rigidbody.velocity = new Vector3(_rigidbody.velocity.x, _desiredDirection.y * speed);
             Debug.Log("Choca");
         }
     }
 
+    private void Escalar()
+    {
+        if ((_desiredDirection.y != 0|| climbing)&&(_boxCollider.IsTouchingLayers(LayerMask.GetMask("Ladder")))) 
+        {
+            Vector2 velocidadsubida = new Vector2(_rigidbody.velocity.x, _desiredDirection.y * speedClimb);
+            _rigidbody.velocity = velocidadsubida;
+            _rigidbody.gravityScale = 0;
+            climbing = true;
+        }
+        else
+        {
+            _rigidbody.gravityScale = gravedadinicial;
+            climbing=false;
+        }
+        if (TocandoSuelo())
+        {
+            climbing = false;
+        }
+
+        _anim.SetBool("Climbing", climbing);
+        //_anim.SetBool("OnGround", TocandoSuelo());
+
+    }
 
 }
