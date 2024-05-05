@@ -834,9 +834,15 @@ MonoBehaviour:
   speedClimb: 5
   speed: 8.18
   fuerzaSalto: 22.5
-  suelo:
+  floorlayerMask:
     serializedVersion: 2
     m_Bits: 64
+  k_space: 32
+  anim_velocidadY: VelocidadY
+  anim_run: Run
+  anim_jump: Jump
+  anim_OnGround: OnGround
+  anim_climbing: Climbing
 --- !u!95 &844332255
 Animator:
   serializedVersion: 5

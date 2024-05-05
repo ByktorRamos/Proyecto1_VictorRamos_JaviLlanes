@@ -11,46 +11,54 @@ public class PlayerMovment : MonoBehaviour
     private Vector3 _desiredDirection = Vector3.zero;
 
     private bool climbing;
-    private float gravedadinicial;
+    private float initialgravity;
     public float speedClimb;
 
 
     private BoxCollider2D _boxCollider;
     private Rigidbody2D _rigidbody;
     public float speed;
-    public float fuerzaSalto;
-    public LayerMask suelo;
+    public float jumpForce;
+    public LayerMask floorlayerMask;
+
 
     private Animator _anim;
 
     private bool mirandoDerecha = true;
+    
+    [Header("Controles")]
+    public KeyCode k_space = KeyCode.Space;
+
+    [Header("Animaciones")]
+    public string anim_velocidadY = "VelocidadY";
+    public string anim_run = "Run";
+    public string anim_jump = "Jump";
+    public string anim_OnGround = "OnGround";
+    public string anim_climbing = "Climbing";
+   
 
 
-
-
-
-    // Start is called before the first frame update
     void Start()
     {
         _anim = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody2D>();
         _boxCollider = GetComponent<BoxCollider2D>();
-        gravedadinicial = _rigidbody.gravityScale;
+        initialgravity = _rigidbody.gravityScale;
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        _anim.SetFloat("VelocidadY",_rigidbody.velocity.y);
+        _anim.SetFloat(anim_velocidadY, _rigidbody.velocity.y);
 
 
-        Movimiento();
+        Moverse();
         Salto();
         Escalar();
     }
 
-    void Movimiento()
+    void Moverse()
     {
         _desiredDirection.x = Input.GetAxis(_horizontalInputAxis);
         _desiredDirection.y = Input.GetAxis(_verticalInputAxis);
@@ -67,11 +75,11 @@ public class PlayerMovment : MonoBehaviour
     {
         if (inputmov != 0f)
         {
-            _anim.SetBool("Run", true);
+            _anim.SetBool(anim_run, true);
         }
         else
         {
-            _anim.SetBool("Run", false);
+            _anim.SetBool(anim_run, false);
         }
     }
 
@@ -93,31 +101,22 @@ public class PlayerMovment : MonoBehaviour
     {
         Vector2 size = new Vector2(_boxCollider.bounds.size.x, _boxCollider.bounds.size.y);
         // Caja para detectar si el jugador toca con el suelo o no
-        RaycastHit2D raycastbox= Physics2D.BoxCast(_boxCollider.bounds.center, size,0f,Vector2.down,0.2f,suelo);
+        RaycastHit2D raycastbox= Physics2D.BoxCast(_boxCollider.bounds.center, size,0f,Vector2.down,0.2f,floorlayerMask);
        
         return raycastbox.collider != null;
     }
 
     void Salto()
     {
-        if(Input.GetKeyDown(KeyCode.Space) && TocandoSuelo()) 
+        if(Input.GetKeyDown(k_space) && TocandoSuelo()) 
         {
-            _rigidbody.AddForce(Vector2.up * fuerzaSalto,ForceMode2D.Impulse);
-            _anim.SetTrigger("Jump");
+            _rigidbody.AddForce(Vector2.up * jumpForce,ForceMode2D.Impulse);
+            _anim.SetTrigger(anim_jump);
         }
-        _anim.SetBool("OnGround", TocandoSuelo());
+        _anim.SetBool(anim_OnGround, TocandoSuelo());
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.tag == "Stairs")
-        {
-            _desiredDirection.y = Input.GetAxis(_verticalInputAxis);
-           
-            _rigidbody.velocity = new Vector3(_rigidbody.velocity.x, _desiredDirection.y * speed);
-            Debug.Log("Choca");
-        }
-    }
+   
 
     private void Escalar()
     {
@@ -130,7 +129,7 @@ public class PlayerMovment : MonoBehaviour
         }
         else
         {
-            _rigidbody.gravityScale = gravedadinicial;
+            _rigidbody.gravityScale = initialgravity;
             climbing=false;
         }
         if (TocandoSuelo())
@@ -138,8 +137,7 @@ public class PlayerMovment : MonoBehaviour
             climbing = false;
         }
 
-        _anim.SetBool("Climbing", climbing);
-        //_anim.SetBool("OnGround", TocandoSuelo());
+        _anim.SetBool(anim_climbing, climbing);
 
     }
 
