@@ -7,8 +7,7 @@ public abstract class StateMachine
     public abstract void EnterState();
     public virtual void UpdateState()
     {
-        //CheckTrasnsition();
-        //OnUpdateState();
+        
     }
     public abstract void ExitSatate();
 

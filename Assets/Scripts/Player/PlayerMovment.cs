@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovment : MonoBehaviour
@@ -47,7 +45,6 @@ public class PlayerMovment : MonoBehaviour
 
     }
 
-    // Update is called once per frame
     void Update()
     {
         _anim.SetFloat(anim_velocidadY, _rigidbody.velocity.y);
