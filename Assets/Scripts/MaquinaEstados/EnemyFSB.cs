@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class EnemyFSB : MonoBehaviour
 {
-    //StateMachine patrolState;
-    //StateMachine _currentState;
+    
     private string m_playerName = "Player";
     private GameObject player;
 
@@ -16,6 +15,7 @@ public class EnemyFSB : MonoBehaviour
 
     private float timer;
 
+
     void Start()
     {
         player = GameObject.FindGameObjectWithTag(m_playerName);
@@ -25,9 +25,9 @@ public class EnemyFSB : MonoBehaviour
     void Update()
     {
 
-        float distance = Vector2.Distance(transform.position, player.transform.position);
+        float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
 
-        if (distance > detectionrange)
+        if (distanceToPlayer < detectionrange)
         {
             timer += Time.deltaTime;
         }
@@ -41,7 +41,8 @@ public class EnemyFSB : MonoBehaviour
 
     void Shoot()
     {
-        Instantiate(bullet,bulletpos.position, Quaternion.identity);
+        Instantiate(bullet,bulletpos.position, bulletpos.rotation);
 
     }
+    
 }
