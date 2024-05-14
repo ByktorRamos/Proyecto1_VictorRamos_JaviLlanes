@@ -494,6 +494,7 @@ GameObject:
   - component: {fileID: 285104715}
   - component: {fileID: 285104716}
   - component: {fileID: 285104717}
+  - component: {fileID: 285104718}
   m_Layer: 8
   m_Name: Enemy
   m_TagString: Untagged
@@ -671,7 +672,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 285104709}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 742ba12353aea0145b5dee4d4d50b7ac, type: 3}
   m_Name: 
@@ -680,6 +681,9 @@ MonoBehaviour:
   bulletpos: {fileID: 461493502}
   shootcooldawn: 2
   detectionrange: 10
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!114 &285104716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -687,7 +691,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 285104709}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2c8a15b9f9bebfb439ba7042a0731edd, type: 3}
   m_Name: 
@@ -717,6 +721,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chaseRange: 5
   speed: 3
+--- !u!114 &285104718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 285104709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a44386a3addc5d34fb1aac417de7b0bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &461493501
 GameObject:
   m_ObjectHideFlags: 0

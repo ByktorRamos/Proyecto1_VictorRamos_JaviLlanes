@@ -23,9 +23,14 @@ public class Patrol : MonoBehaviour
 
     private void Update()
     {
-        _rb.velocity= new Vector2(speed, _rb.velocity.y);
+        Patrolfunc();
+    }
 
-       // infofrente = Physics2D.Raycast(contrfrente.position, Vector2.right, distanciafrente, capaEnfrente);
+    public void Patrolfunc()
+    {
+        _rb.velocity = new Vector2(speed, _rb.velocity.y);
+
+        // infofrente = Physics2D.Raycast(contrfrente.position, Vector2.right, distanciafrente, capaEnfrente);
         infofrente = Physics2D.Raycast(contrfrente.position, transform.right, distanciafrente, capaEnfrente);
 
         //infoabajo = Physics2D.Raycast(contrabajo.position, Vector2.down, distanciaabajo, capaAbajo);
@@ -36,7 +41,6 @@ public class Patrol : MonoBehaviour
             Girar();
         }
     }
-
     private void Girar()
     {
         mirandodre = !mirandodre;
@@ -44,11 +48,11 @@ public class Patrol : MonoBehaviour
         speed *= -1;
     }
 
-    private void OnDrawGizmos()
+    /*private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawLine(contrabajo.transform.position, contrabajo.transform.position + transform.up * -1 * distanciaabajo);
         Gizmos.DrawLine(contrfrente.transform.position, contrfrente.transform.position + transform.right * distanciafrente);
-    }
+    }*/
    
 }

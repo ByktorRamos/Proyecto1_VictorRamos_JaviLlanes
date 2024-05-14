@@ -5,8 +5,8 @@ using UnityEngine;
 public class ChasePlayer : MonoBehaviour
 {
    // public Transform player;
-    public float chaseRange = 5f; // Distancia a partir de la cual el enemigo persigue al jugador
-    public float speed = 3f; // Velocidad de movimiento del enemigo
+    public float chaseRange = 5f; 
+    public float speed = 3f; 
 
     private string m_playerName = "Player";
     private GameObject player;
@@ -20,10 +20,8 @@ public class ChasePlayer : MonoBehaviour
 
     void Update()
     {
-        // Calcula la distancia entre el enemigo y el jugador
         float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
 
-        // Si el jugador está dentro del rango de persecución, persigue al jugador
         if (distanceToPlayer < chaseRange)
         {
             Chaseplayers();

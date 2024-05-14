@@ -14,7 +14,8 @@ public class EnemyFSB : MonoBehaviour
     public float detectionrange = 10;
 
     private float timer;
-
+    private bool rangeplayer;
+    public LayerMask playerLayer;
 
     void Start()
     {
@@ -24,10 +25,10 @@ public class EnemyFSB : MonoBehaviour
 
     void Update()
     {
+        rangeplayer = Physics2D.Raycast(bulletpos.position, transform.right, detectionrange, playerLayer );
+       //float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
 
-        float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
-
-        if (distanceToPlayer < detectionrange)
+        if (rangeplayer)
         {
             timer += Time.deltaTime;
         }
