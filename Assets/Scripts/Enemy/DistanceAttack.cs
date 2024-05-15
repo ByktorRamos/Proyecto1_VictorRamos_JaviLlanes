@@ -5,9 +5,6 @@ using UnityEngine;
 public class DistanceAttack : MonoBehaviour
 {
     
-
-    
-
     private float timer;
     private bool rangeplayer;
     public LayerMask playerLayer;

@@ -491,10 +491,10 @@ GameObject:
   - component: {fileID: 285104710}
   - component: {fileID: 285104714}
   - component: {fileID: 285104713}
-  - component: {fileID: 285104716}
-  - component: {fileID: 285104717}
   - component: {fileID: 285104718}
   - component: {fileID: 285104719}
+  - component: {fileID: 285104721}
+  - component: {fileID: 285104720}
   m_Layer: 8
   m_Name: Enemy
   m_TagString: Untagged
@@ -665,41 +665,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &285104716
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 285104709}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c8a15b9f9bebfb439ba7042a0731edd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 2
-  layerFloor:
-    serializedVersion: 2
-    m_Bits: 64
-  layerobstacles:
-    serializedVersion: 2
-    m_Bits: 328
-  disFloorDetection: 2
-  disObstacleDetection: 2
-  contrfloor: {fileID: 838200172}
-  contrObst: {fileID: 1000078236}
---- !u!114 &285104717
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 285104709}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 518ba54571309644eb391b7819013126, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &285104718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -707,12 +672,51 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 285104709}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a44386a3addc5d34fb1aac417de7b0bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  patrolspeed: 2.87
+  layerFloor:
+    serializedVersion: 2
+    m_Bits: 64
+  layerobstacle:
+    serializedVersion: 2
+    m_Bits: 320
+  contrfloor: {fileID: 838200172}
+  controbstacle: {fileID: 1000078236}
+  chasespeed: 2
+  chaseRange: 8
+  bullet: {fileID: 2001450654477768924, guid: c2044ae2fd718844680d75af9856d923, type: 3}
+  bulletpos: {fileID: 461493502}
+  shootcooldawn: 2
+  detectionrange: 10
 --- !u!114 &285104719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 285104709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c8a15b9f9bebfb439ba7042a0731edd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &285104720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 285104709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 518ba54571309644eb391b7819013126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &285104721
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -724,10 +728,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 742ba12353aea0145b5dee4d4d50b7ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 2001450654477768924, guid: c2044ae2fd718844680d75af9856d923, type: 3}
-  bulletpos: {fileID: 461493502}
-  shootcooldawn: 2
-  detectionrange: 10
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -996,7 +996,7 @@ GameObject:
   m_Component:
   - component: {fileID: 838200172}
   m_Layer: 0
-  m_Name: ControladorAbajo
+  m_Name: ContrFloor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3626,7 +3626,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1000078236}
   m_Layer: 0
-  m_Name: ControladorEnFrente
+  m_Name: ContrObsta
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

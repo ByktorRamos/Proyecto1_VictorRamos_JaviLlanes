@@ -28,13 +28,13 @@ public class EnemyMachine : MonoBehaviour
 
     [Header("Chase")]
     public float chasespeed = 2;
-    public float chaseRange = 8;
+    public float chaseRange = 10;
 
     [Header("DistanceAttack")]
     public GameObject bullet;
     public Transform bulletpos;
     public float shootcooldawn = 2;
-    public float detectionrange = 10;
+    public float detectionrange = 6;
 
     private void Start()
     {
@@ -49,6 +49,7 @@ public class EnemyMachine : MonoBehaviour
     private void Update()
     {
         CheckTransition();
+        ExecuteState();
     }
     private void EnterState()
     {
@@ -65,19 +66,52 @@ public class EnemyMachine : MonoBehaviour
                 break;
         }
     }
+    private void ExecuteState()
+    {
+        switch (_currentEnemyState)
+        {
+            case EnemyStates.PATROL:
+                _patrol.Patrolfunc(patrolspeed, layerFloor, layerobstacle, contrfloor, controbstacle, _rb);
+                break;
+            case EnemyStates.CHASE:
+                _chaseplayer.Chaseplayers(chasespeed, player);
+                break;
+            case EnemyStates.DISTANCEATTACK:
+                _distanceattack.AttackDistance(bulletpos, detectionrange, shootcooldawn, bullet);
+                break;
+        }
+    }
     private void CheckTransition()
     {
         float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
-        if (distanceToPlayer < chaseRange)
-        {
-           ChangeEnemyState(EnemyStates.DISTANCEATTACK);
-        }
-        if (distanceToPlayer<detectionrange)
-        {
-            ChangeEnemyState(EnemyStates.DISTANCEATTACK);
 
+        switch (_currentEnemyState)
+        {
+            case EnemyStates.PATROL:
+                if (distanceToPlayer < chaseRange)
+                {
+                    ChangeEnemyState(EnemyStates.CHASE);
+                }
+                break;
+            case EnemyStates.CHASE:
+                if (distanceToPlayer < detectionrange)
+                {
+                    ChangeEnemyState(EnemyStates.DISTANCEATTACK);
+                }
+                else if (distanceToPlayer > chaseRange)
+                {
+                    ChangeEnemyState(EnemyStates.PATROL);
+                }
+                break;
+            case EnemyStates.DISTANCEATTACK:
+                if (distanceToPlayer > detectionrange)
+                {
+                    ChangeEnemyState(EnemyStates.CHASE);
+                }
+                break;
         }
     }
+
     private void ChangeEnemyState(EnemyStates state)
     {
         if (state == _currentEnemyState)

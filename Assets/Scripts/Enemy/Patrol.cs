@@ -12,11 +12,12 @@ public class Patrol : MonoBehaviour
     private bool infObstacles;
     private bool mirandodre=true;
 
-
    
+
 
     public void Patrolfunc(float speed, LayerMask layerFloor, LayerMask layerobstacles,Transform contrfloor, Transform contrObst, Rigidbody2D _rb)
     {
+
         _rb.velocity = new Vector2(speed, _rb.velocity.y);
 
         // infofrente = Physics2D.Raycast(contrfrente.position, Vector2.right, distanciafrente, capaEnfrente);
