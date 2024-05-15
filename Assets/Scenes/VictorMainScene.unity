@@ -691,7 +691,7 @@ MonoBehaviour:
   bullet: {fileID: 2001450654477768924, guid: c2044ae2fd718844680d75af9856d923, type: 3}
   bulletpos: {fileID: 461493502}
   shootcooldawn: 2
-  detectionrange: 10
+  attackrange: 6
 --- !u!114 &285104719
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -704,6 +704,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c8a15b9f9bebfb439ba7042a0731edd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 0
 --- !u!114 &285104720
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4154,7 +4155,7 @@ SceneRoots:
   - {fileID: 35577352}
   - {fileID: 2144230453}
   - {fileID: 844332253}
-  - {fileID: 1914935216}
   - {fileID: 1168574400}
   - {fileID: 9039554805233622125}
   - {fileID: 285104712}
+  - {fileID: 1914935216}

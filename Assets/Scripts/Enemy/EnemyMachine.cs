@@ -11,8 +11,8 @@ public class EnemyMachine : MonoBehaviour
        DISTANCEATTACK
     }
     private Rigidbody2D _rb;
-    private GameObject player;
-
+    private GameObject _player;
+    private Animator _anim;
 
     private EnemyStates _currentEnemyState = EnemyStates.PATROL;
     ChasePlayer _chaseplayer;
@@ -34,15 +34,20 @@ public class EnemyMachine : MonoBehaviour
     public GameObject bullet;
     public Transform bulletpos;
     public float shootcooldawn = 2;
-    public float detectionrange = 6;
+    public float attackrange = 6;
 
     private void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
-        player = GameObject.FindGameObjectWithTag("Player");
+        _player = GameObject.FindGameObjectWithTag("Player");
+        _anim = GetComponent<Animator>();
 
-        //_patrol = GetComponent<Patrol>();
-        EnterState();
+        _patrol = GetComponent<Patrol>();
+        _chaseplayer = GetComponent<ChasePlayer>();
+        _distanceattack = GetComponent<DistanceAttack>();
+        _patrol.speed = patrolspeed;
+        ExecuteState();
+
     }
 
 
@@ -51,39 +56,31 @@ public class EnemyMachine : MonoBehaviour
         CheckTransition();
         ExecuteState();
     }
-    private void EnterState()
-    {
-        switch (_currentEnemyState) 
-        {
-            case EnemyStates.PATROL:
-                _patrol.Patrolfunc(patrolspeed,layerFloor,layerobstacle,contrfloor,controbstacle,_rb);
-                break;
-            case EnemyStates.CHASE:
-                //_chaseplayer.Chaseplayers(chasespeed,player);
-                break;
-            case EnemyStates.DISTANCEATTACK:
-                _distanceattack.AttackDistance(bulletpos, detectionrange, shootcooldawn, bullet);
-                break;
-        }
-    }
+    
     private void ExecuteState()
     {
         switch (_currentEnemyState)
         {
             case EnemyStates.PATROL:
-                _patrol.Patrolfunc(patrolspeed, layerFloor, layerobstacle, contrfloor, controbstacle, _rb);
+                Debug.Log("Patrulla");
+                _anim.SetBool("Walk",true);
+                _patrol.Patrolfunc( layerFloor, layerobstacle, contrfloor, controbstacle, _rb);
                 break;
             case EnemyStates.CHASE:
-                _chaseplayer.Chaseplayers(chasespeed, player);
+                Debug.Log("Chasea");
+                _anim.SetBool("Walk",true);
+                _chaseplayer.Chaseplayers(chasespeed, _player, _rb);
                 break;
             case EnemyStates.DISTANCEATTACK:
-                _distanceattack.AttackDistance(bulletpos, detectionrange, shootcooldawn, bullet);
+                Debug.Log("Attackea");
+                _anim.SetBool("Walk", false);
+                _distanceattack.AttackDistance(bulletpos, attackrange, shootcooldawn, bullet,_anim);
                 break;
         }
     }
     private void CheckTransition()
     {
-        float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
+        float distanceToPlayer = Vector2.Distance(transform.position, _player.transform.position);
 
         switch (_currentEnemyState)
         {
@@ -94,7 +91,7 @@ public class EnemyMachine : MonoBehaviour
                 }
                 break;
             case EnemyStates.CHASE:
-                if (distanceToPlayer < detectionrange)
+                if (distanceToPlayer < attackrange)
                 {
                     ChangeEnemyState(EnemyStates.DISTANCEATTACK);
                 }
@@ -104,7 +101,7 @@ public class EnemyMachine : MonoBehaviour
                 }
                 break;
             case EnemyStates.DISTANCEATTACK:
-                if (distanceToPlayer > detectionrange)
+                if (distanceToPlayer > attackrange)
                 {
                     ChangeEnemyState(EnemyStates.CHASE);
                 }
@@ -118,7 +115,8 @@ public class EnemyMachine : MonoBehaviour
             return;
         ExitState();
         _currentEnemyState = state;
-        EnterState();
+        ExecuteState();
+
     }
 
     private void ExitState()
@@ -126,12 +124,17 @@ public class EnemyMachine : MonoBehaviour
         switch (_currentEnemyState)
         {
             case EnemyStates.PATROL:
+                Debug.Log("ExitState Patrol");
                 break;
             case EnemyStates.CHASE:
+                Debug.Log("ExitState Chase");
+
                 _currentEnemyState = EnemyStates.PATROL;
                 break;
             case EnemyStates.DISTANCEATTACK:
-                _currentEnemyState = EnemyStates.CHASE;
+                Debug.Log("ExitState Attack");
+
+                 _currentEnemyState = EnemyStates.CHASE;
                 break;
         }
     }

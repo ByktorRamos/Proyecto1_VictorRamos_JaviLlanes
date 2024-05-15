@@ -8,10 +8,11 @@ public class PlayerLife : MonoBehaviour
     public float invulnerabilityTime;
     private float invulnerabilityTimeinitial;
     private bool isInvulnerable = false;
-
+    Animator _anim;
 
     private void Start()
     {
+        _anim=GetComponent<Animator>();
         invulnerabilityTimeinitial= invulnerabilityTime;
     }
     private void Update()
@@ -29,16 +30,17 @@ public class PlayerLife : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        // Si el jugador está invulnerable, sal de la función sin recibir daño
+        // Si el jugador esta invulnerable, sal de la funcion sin recibir damage
         if (isInvulnerable)
         {
             return;
         }
-
+        _anim.SetTrigger("ReciveDamage");
         life -= damage;
 
         if (life <= 0)
         {
+            _anim.SetTrigger("Die");
             Destroy(gameObject);
         }
         else

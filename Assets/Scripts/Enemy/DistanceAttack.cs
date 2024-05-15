@@ -10,7 +10,7 @@ public class DistanceAttack : MonoBehaviour
     public LayerMask playerLayer;
 
     
-    public void AttackDistance(Transform bulletpos, float detectionrange, float shootcooldawn,GameObject bullet)
+    public void AttackDistance(Transform bulletpos, float detectionrange, float shootcooldawn,GameObject bullet,Animator _anim)
     {
         rangeplayer = Physics2D.Raycast(bulletpos.position, transform.right, detectionrange, playerLayer);
         //float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
@@ -23,6 +23,7 @@ public class DistanceAttack : MonoBehaviour
         if (timer > shootcooldawn)
         {
             timer = 0;
+            _anim.SetTrigger("Shoot");
             Shoot(bullet, bulletpos);
         }
     }
