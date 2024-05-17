@@ -304,7 +304,7 @@ Transform:
   m_GameObject: {fileID: 35577350}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15.859999, y: -5.21, z: -10}
+  m_LocalPosition: {x: 15.86, y: -5.21, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -584,11 +584,12 @@ Transform:
   m_GameObject: {fileID: 285104709}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.26, y: -2.06, z: 0}
+  m_LocalPosition: {x: -13.48, y: -10.1, z: 0}
   m_LocalScale: {x: 7.3771877, y: 7.3771877, z: 7.3771877}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 461493502}
+  - {fileID: 1099603513}
   - {fileID: 838200172}
   - {fileID: 1000078236}
   m_Father: {fileID: 0}
@@ -677,7 +678,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a44386a3addc5d34fb1aac417de7b0bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  patrolspeed: 2.87
+  patrolspeed: 3
   layerFloor:
     serializedVersion: 2
     m_Bits: 64
@@ -687,7 +688,7 @@ MonoBehaviour:
   contrfloor: {fileID: 838200172}
   controbstacle: {fileID: 1000078236}
   chasespeed: 2
-  chaseRange: 8
+  chaseRange: 10
   bullet: {fileID: 2001450654477768924, guid: c2044ae2fd718844680d75af9856d923, type: 3}
   bulletpos: {fileID: 461493502}
   shootcooldawn: 2
@@ -717,6 +718,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 518ba54571309644eb391b7819013126, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletpos: {fileID: 461493502}
+  espalda: {fileID: 1099603513}
+  distancia: 5
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!114 &285104721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -732,6 +739,10 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
+  bulletpos: {fileID: 461493502}
+  espalda: {fileID: 1099603513}
+  detectionEsplada: 4
+  proba: 6
 --- !u!1 &461493501
 GameObject:
   m_ObjectHideFlags: 0
@@ -1238,7 +1249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5317baa857796e4bb94f44533fc076c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 10
+  life: 528
   invulnerabilityTime: 1
 --- !u!1 &871618125
 GameObject:
@@ -3777,6 +3788,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2144230453}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1099603512
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1099603513}
+  m_Layer: 0
+  m_Name: Detras
+  m_TagString: Untagged
+  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1099603513
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1099603512}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.156, y: 0.002, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 285104712}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1168574399
 GameObject:

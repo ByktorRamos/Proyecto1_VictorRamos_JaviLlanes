@@ -62,17 +62,17 @@ public class EnemyMachine : MonoBehaviour
         switch (_currentEnemyState)
         {
             case EnemyStates.PATROL:
-                Debug.Log("Patrulla");
+                //Debug.Log("Patrulla");
                 _anim.SetBool("Walk",true);
                 _patrol.Patrolfunc( layerFloor, layerobstacle, contrfloor, controbstacle, _rb);
                 break;
             case EnemyStates.CHASE:
-                Debug.Log("Chasea");
+                //Debug.Log("Chasea");
                 _anim.SetBool("Walk",true);
                 _chaseplayer.Chaseplayers(chasespeed, _player, _rb);
                 break;
             case EnemyStates.DISTANCEATTACK:
-                Debug.Log("Attackea");
+                //Debug.Log("Attackea");
                 _anim.SetBool("Walk", false);
                 _distanceattack.AttackDistance(bulletpos, attackrange, shootcooldawn, bullet,_anim);
                 break;
@@ -124,15 +124,15 @@ public class EnemyMachine : MonoBehaviour
         switch (_currentEnemyState)
         {
             case EnemyStates.PATROL:
-                Debug.Log("ExitState Patrol");
+                //Debug.Log("ExitState Patrol");
                 break;
             case EnemyStates.CHASE:
-                Debug.Log("ExitState Chase");
+               // Debug.Log("ExitState Chase");
 
                 _currentEnemyState = EnemyStates.PATROL;
                 break;
             case EnemyStates.DISTANCEATTACK:
-                Debug.Log("ExitState Attack");
+               // Debug.Log("ExitState Attack");
 
                  _currentEnemyState = EnemyStates.CHASE;
                 break;
