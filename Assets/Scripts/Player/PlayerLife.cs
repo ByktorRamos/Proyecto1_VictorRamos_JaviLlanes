@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerLife : MonoBehaviour
 {
@@ -9,6 +11,7 @@ public class PlayerLife : MonoBehaviour
     private float invulnerabilityTimeinitial;
     private bool isInvulnerable = false;
     Animator _anim;
+    public event EventHandler diePlayer;
 
     private void Start()
     {
@@ -35,18 +38,26 @@ public class PlayerLife : MonoBehaviour
         {
             return;
         }
+
         _anim.SetTrigger("ReciveDamage");
         life -= damage;
 
         if (life <= 0)
         {
-            _anim.SetTrigger("Die");
-            Destroy(gameObject);
+            StartCoroutine(Die());
         }
         else
         {
             isInvulnerable = true;
-            invulnerabilityTime = invulnerabilityTimeinitial; 
+            invulnerabilityTime = invulnerabilityTimeinitial;
         }
+    }
+
+    private IEnumerator Die()
+    {
+        _anim.SetTrigger("Die");
+        yield return new WaitForSeconds(_anim.GetCurrentAnimatorStateInfo(0).length);
+        Destroy(gameObject);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

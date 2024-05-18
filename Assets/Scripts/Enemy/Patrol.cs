@@ -1,55 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Patrol : MonoBehaviour
 {
-    /* private Rigidbody2D _rb;
-
-     public float speed;
-     public LayerMask layerFloor;
-     public LayerMask layerobstacles;
-     public Transform contrfloor;
-     public Transform contrObst;*/
     public float speed;
     private float disFloorDetection = 2;
     private float disObstacleDetection = 2;
 
     private bool infFloor;
     private bool infObstacles;
-    private bool mirandodre=true;
 
-    /*private void Start()
+    public void Patrolfunc(LayerMask layerFloor, LayerMask layerobstacles, Transform contrfloor, Transform contrObst, Rigidbody2D _rb, ref bool mirandoder)
     {
-        _rb = GetComponent<Rigidbody2D>();
+        _rb.velocity = new Vector2(mirandoder ? speed : -speed, _rb.velocity.y);
 
-    }
-    private void Update()
-    {
-        Patrolfunc();
-    }*/
-
-    public void Patrolfunc(LayerMask layerFloor, LayerMask layerobstacles,Transform contrfloor, Transform contrObst, Rigidbody2D _rb)
-    {
-
-        _rb.velocity = new Vector2(speed, _rb.velocity.y);
-
-        // infofrente = Physics2D.Raycast(contrfrente.position, Vector2.right, distanciafrente, capaEnfrente);
         infObstacles = Physics2D.Raycast(contrObst.position, transform.right, disObstacleDetection, layerobstacles);
-
-        //infoabajo = Physics2D.Raycast(contrabajo.position, Vector2.down, distanciaabajo, capaAbajo);
-        infFloor = Physics2D.Raycast(contrfloor.position, transform.up * -1, disFloorDetection, layerFloor);
+        infFloor = Physics2D.Raycast(contrfloor.position, Vector2.down, disFloorDetection, layerFloor);
 
         if (infObstacles || !infFloor)
         {
-            Girar();
+            Girar(ref mirandoder);
         }
     }
-    private void Girar()
+
+    private void Girar(ref bool mirandoder)
     {
-        mirandodre = !mirandodre;
+        mirandoder = !mirandoder;
         transform.eulerAngles = new Vector3(0, transform.eulerAngles.y + 180, 0);
-        speed *= -1;
     }
     /*
 #if UNITY_EDITOR

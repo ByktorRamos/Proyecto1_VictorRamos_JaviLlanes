@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using static Unity.Burst.Intrinsics.X86.Avx;
+
 
 public class DistanceAttack : MonoBehaviour
 {
@@ -11,66 +8,49 @@ public class DistanceAttack : MonoBehaviour
     private bool rangeplayer;
     private bool rangeplayerdEspalda;
     public LayerMask playerLayer;
-    private Transform player;
-
+    
 
     public Transform bulletpos;
     public Transform espalda;
     public float detectionEsplada;
-    public float proba = 6;
 
-    private bool mirandoder = true;
-    private bool probamos=true;
+    public float detectionrange;
 
-    private void Start()
+   
+
+    public void AttackDistance(Transform bulletpos, float attackRange, float shootcooldown, GameObject bullet, Animator _anim, ref bool mirandoder)
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-    }
-
-    public void AttackDistance(Transform bulletpos, float detectionrange, float shootcooldown, GameObject bullet, Animator _anim)
-    {
-        rangeplayer = Physics2D.Raycast(bulletpos.position, transform.right, proba, playerLayer);
+        rangeplayer = Physics2D.Raycast(bulletpos.position, transform.right, attackRange, playerLayer);
         rangeplayerdEspalda = Physics2D.Raycast(espalda.position, transform.right * -1, detectionEsplada, playerLayer);
 
         if (rangeplayer)
         {
-            //Debug.Log("EnFrente");
-            Debug.Log(probamos);
-            Debug.Log(rangeplayer+"Rangeplayer");
-
             Shoot(bullet, bulletpos, _anim, shootcooldown);
         }
-        
 
-        if (rangeplayerdEspalda) 
+        if (rangeplayerdEspalda)
         {
-            //Debug.Log("EnLaEspalda");
-            Girar();
-           // probamos=false;
-            Debug.Log(probamos);
+            Girar(ref mirandoder);
         }
-       /* if (!rangeplayer && probamos == false)
-        {
-            Debug.Log("Jugador fuera de rango");
-            Girar();
-        }*/
 
+        if (!rangeplayer && !rangeplayerdEspalda && !mirandoder)
+        {
+            Girar(ref mirandoder);
+        }
     }
 
-    private void Girar()
+    private void Girar(ref bool mirandoder)
     {
         mirandoder = !mirandoder;
         transform.eulerAngles = new Vector3(0, transform.eulerAngles.y + 180, 0);
-        //speed *= -1;
     }
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawLine(bulletpos.position, bulletpos.position + transform.right * proba);
+        Gizmos.DrawLine(bulletpos.position, bulletpos.position + transform.right * detectionrange);
 
         Gizmos.color = Color.red;
-
         Gizmos.DrawLine(espalda.position, espalda.position + transform.right * -1 * detectionEsplada);
     }
 
@@ -83,7 +63,6 @@ public class DistanceAttack : MonoBehaviour
             _anim.SetTrigger("Shoot");
             Instantiate(bullet, bulletpos.position, bulletpos.rotation);
         }
-        
     }
 
 }

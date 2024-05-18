@@ -304,7 +304,7 @@ Transform:
   m_GameObject: {fileID: 35577350}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15.86, y: -5.21, z: -10}
+  m_LocalPosition: {x: 15.86, y: -6.54, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -626,7 +626,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.023712888}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -637,7 +637,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.21, y: 0.4}
+  m_Size: {x: 0.21, y: 0.3525742}
   m_EdgeRadius: 0
 --- !u!50 &285104714
 Rigidbody2D:
@@ -688,7 +688,7 @@ MonoBehaviour:
   contrfloor: {fileID: 838200172}
   controbstacle: {fileID: 1000078236}
   chasespeed: 2
-  chaseRange: 10
+  chaseRange: 7
   bullet: {fileID: 2001450654477768924, guid: c2044ae2fd718844680d75af9856d923, type: 3}
   bulletpos: {fileID: 461493502}
   shootcooldawn: 2
@@ -742,7 +742,7 @@ MonoBehaviour:
   bulletpos: {fileID: 461493502}
   espalda: {fileID: 1099603513}
   detectionEsplada: 4
-  proba: 6
+  detectionrange: 6
 --- !u!1 &461493501
 GameObject:
   m_ObjectHideFlags: 0
@@ -1139,7 +1139,7 @@ Transform:
   m_GameObject: {fileID: 844332249}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15.86, y: -5.21, z: 0}
+  m_LocalPosition: {x: 15.86, y: -6.54, z: 0}
   m_LocalScale: {x: 8.13, y: 8.13, z: 8.13}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -1224,7 +1224,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.00071416795}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -1235,7 +1235,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.17, y: 0.34}
+  m_Size: {x: 0.17, y: 0.3385717}
   m_EdgeRadius: 0
 --- !u!114 &844332257
 MonoBehaviour:
@@ -1249,7 +1249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5317baa857796e4bb94f44533fc076c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 528
+  life: 3
   invulnerabilityTime: 1
 --- !u!1 &871618125
 GameObject:
