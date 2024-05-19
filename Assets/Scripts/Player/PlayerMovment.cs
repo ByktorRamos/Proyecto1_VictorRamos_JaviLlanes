@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class PlayerMovment : MonoBehaviour
 {
+    public GameObject arm;
+    ShootingGun _shooting;
     [SerializeField]
     private string _horizontalInputAxis = "Horizontal";
     [SerializeField]
@@ -43,7 +45,8 @@ public class PlayerMovment : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody2D>();
         _boxCollider = GetComponent<BoxCollider2D>();
         initialgravity = _rigidbody.gravityScale;
-
+        
+        _shooting= GetComponent<ShootingGun>();
     }
 
     void Update()
@@ -124,14 +127,18 @@ public class PlayerMovment : MonoBehaviour
             _rigidbody.velocity = velocidadsubida;
             _rigidbody.gravityScale = 0;
             climbing = true;
+            arm.SetActive(false);
+            
         }
         else
         {
             _rigidbody.gravityScale = initialgravity;
-            climbing=false;
+            arm.SetActive(true);
+            climbing = false;
         }
         if (TocandoSuelo())
         {
+            arm.SetActive(true);
             climbing = false;
         }
 

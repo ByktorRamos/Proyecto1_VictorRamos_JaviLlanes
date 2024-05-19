@@ -10,12 +10,14 @@ public class ShootingGun : MonoBehaviour
     public SpriteRenderer gunSR;
     public Transform bulletPos;
     public int speedball;
+    public float cooldawnShoot = 0.5f;
     Vector3 targetRotation;
 
     public GameObject ball;
     Vector3 finaltarget;
 
-    private PlayerMovment playerMovement; 
+    private PlayerMovment playerMovement;
+    private bool canShoot = true;
 
     private void Start()
     {
@@ -44,10 +46,19 @@ public class ShootingGun : MonoBehaviour
         else
             gunSR.flipY = false;
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-            Shoot();
+        if (Input.GetKeyDown(KeyCode.Mouse0) && canShoot)
+        {
+            StartCoroutine(ShootWithCooldown());
+        }
     }
 
+    private IEnumerator ShootWithCooldown()
+    {
+        Shoot();
+        canShoot = false; 
+        yield return new WaitForSeconds(cooldawnShoot);
+        canShoot = true; 
+    }
     void Shoot()
     {
         var Ball = Instantiate(ball, bulletPos.position, Quaternion.identity);
