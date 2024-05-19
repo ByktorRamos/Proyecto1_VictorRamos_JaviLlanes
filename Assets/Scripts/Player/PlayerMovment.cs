@@ -22,8 +22,9 @@ public class PlayerMovment : MonoBehaviour
 
     private Animator _anim;
 
-    private bool mirandoDerecha = true;
-    
+    public bool mirandoDerecha = true;
+
+
     [Header("Controles")]
     public KeyCode k_space = KeyCode.Space;
 
@@ -81,7 +82,7 @@ public class PlayerMovment : MonoBehaviour
     }
 
     // Cambia la orientacion hacia donde mira el personaje
-    void Orientacion(float desiredDirection)
+    public void Orientacion(float desiredDirection)
     {
 
         if ((mirandoDerecha == true && desiredDirection < 0) || (mirandoDerecha == false && desiredDirection > 0))

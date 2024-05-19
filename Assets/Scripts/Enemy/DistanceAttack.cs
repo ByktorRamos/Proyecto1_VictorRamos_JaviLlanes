@@ -20,8 +20,9 @@ public class DistanceAttack : MonoBehaviour
 
     public void AttackDistance(Transform bulletpos, float attackRange, float shootcooldown, GameObject bullet, Animator _anim, ref bool mirandoder)
     {
-        rangeplayer = Physics2D.Raycast(bulletpos.position, transform.right, attackRange, playerLayer);
+        rangeplayer = Physics2D.Raycast(bulletpos.position, transform.right, detectionrange, playerLayer);
         rangeplayerdEspalda = Physics2D.Raycast(espalda.position, transform.right * -1, detectionEsplada, playerLayer);
+
 
         if (rangeplayer)
         {

@@ -11,8 +11,7 @@ public class PlayerLife : MonoBehaviour
     private float invulnerabilityTimeinitial;
     private bool isInvulnerable = false;
     Animator _anim;
-    public event EventHandler diePlayer;
-
+    public GameObject arm;
     private void Start()
     {
         _anim=GetComponent<Animator>();
@@ -44,6 +43,7 @@ public class PlayerLife : MonoBehaviour
 
         if (life <= 0)
         {
+            arm.SetActive(false);
             StartCoroutine(Die());
         }
         else

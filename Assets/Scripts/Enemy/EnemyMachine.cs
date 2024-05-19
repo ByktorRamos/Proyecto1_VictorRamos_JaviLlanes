@@ -70,6 +70,8 @@ public class EnemyMachine : MonoBehaviour
                 break;
             case EnemyStates.DISTANCEATTACK:
                 _anim.SetBool("Walk", false);
+                Debug.Log("ataka por 2");
+
                 _distanceattack.AttackDistance(bulletpos, attackrange, shootcooldawn, bullet, _anim, ref mirandoder);
                 break;
         }
