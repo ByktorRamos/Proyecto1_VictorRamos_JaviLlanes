@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Parallax : MonoBehaviour
 {
-    Transform cam;
+    public Transform cam;
     Vector3 camStartPos;
     // Distancia entre la posicion de comienzo de la camara y su posicion actual
     float distance;

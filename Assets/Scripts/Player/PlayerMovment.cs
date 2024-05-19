@@ -1,48 +1,69 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovment : MonoBehaviour
 {
     [SerializeField]
     private string _horizontalInputAxis = "Horizontal";
-    //[SerializeField]
-    //private string _verticalInputAxis = "Vertical";
+    [SerializeField]
+    private string _verticalInputAxis = "Vertical";
     private Vector3 _desiredDirection = Vector3.zero;
+
+    private bool climbing;
+    private float initialgravity;
+    public float speedClimb;
 
 
     private BoxCollider2D _boxCollider;
-    private new Rigidbody2D rigidbody;
+    private Rigidbody2D _rigidbody;
     public float speed;
-    public float fuerzaSalto;
-    public LayerMask suelo;
+    public float jumpForce;
+    public LayerMask floorlayerMask;
 
-    private Animator anim;
 
-    private bool mirandoDerecha = true;
-    // Start is called before the first frame update
+    private Animator _anim;
+
+    public bool mirandoDerecha = true;
+
+
+    [Header("Controles")]
+    public KeyCode k_space = KeyCode.Space;
+
+    [Header("Animaciones")]
+    public string anim_velocidadY = "VelocidadY";
+    public string anim_run = "Run";
+    public string anim_jump = "Jump";
+    public string anim_OnGround = "OnGround";
+    public string anim_climbing = "Climbing";
+   
+
+
     void Start()
     {
-        anim = GetComponent<Animator>();
-        rigidbody = GetComponent<Rigidbody2D>();
+        _anim = GetComponent<Animator>();
+        _rigidbody = GetComponent<Rigidbody2D>();
         _boxCollider = GetComponent<BoxCollider2D>();
+        initialgravity = _rigidbody.gravityScale;
 
     }
 
-    // Update is called once per frame
     void Update()
     {
-        Movimiento();
+        _anim.SetFloat(anim_velocidadY, _rigidbody.velocity.y);
+
+
+        Moverse();
         Salto();
+        Escalar();
     }
 
-    void Movimiento()
+    void Moverse()
     {
         _desiredDirection.x = Input.GetAxis(_horizontalInputAxis);
+        _desiredDirection.y = Input.GetAxis(_verticalInputAxis);
 
         AnimacionRun(_desiredDirection.x);
 
-        rigidbody.velocity = new Vector3(_desiredDirection.x * speed,rigidbody.velocity.y);
+        _rigidbody.velocity = new Vector3(_desiredDirection.x * speed,_rigidbody.velocity.y);
       
 
         Orientacion(_desiredDirection.x);
@@ -52,21 +73,24 @@ public class PlayerMovment : MonoBehaviour
     {
         if (inputmov != 0f)
         {
-            anim.SetBool("Run", true);
+            _anim.SetBool(anim_run, true);
         }
         else
         {
-            anim.SetBool("Run", false);
+            _anim.SetBool(anim_run, false);
         }
     }
 
-    void Orientacion(float desiredDirection)
+    // Cambia la orientacion hacia donde mira el personaje
+    public void Orientacion(float desiredDirection)
     {
+
         if ((mirandoDerecha == true && desiredDirection < 0) || (mirandoDerecha == false && desiredDirection > 0))
         {
-
-            mirandoDerecha = !mirandoDerecha;
-            transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
+            mirandoDerecha= !mirandoDerecha;
+            Vector3 escala = transform.localScale;
+            escala.x *= -1;
+            transform.localScale = escala;
         }
     }
 
@@ -75,21 +99,44 @@ public class PlayerMovment : MonoBehaviour
     {
         Vector2 size = new Vector2(_boxCollider.bounds.size.x, _boxCollider.bounds.size.y);
         // Caja para detectar si el jugador toca con el suelo o no
-        RaycastHit2D raycastbox= Physics2D.BoxCast(_boxCollider.bounds.center, size,0f,Vector2.down,0.2f,suelo);
+        RaycastHit2D raycastbox= Physics2D.BoxCast(_boxCollider.bounds.center, size,0f,Vector2.down,0.2f,floorlayerMask);
        
         return raycastbox.collider != null;
     }
 
     void Salto()
     {
-        if(Input.GetKeyDown(KeyCode.Space) && TocandoSuelo()) 
+        if(Input.GetKeyDown(k_space) && TocandoSuelo()) 
         {
-            rigidbody.AddForce(Vector2.up * fuerzaSalto,ForceMode2D.Impulse);
+            _rigidbody.AddForce(Vector2.up * jumpForce,ForceMode2D.Impulse);
+            _anim.SetTrigger(anim_jump);
         }
+        _anim.SetBool(anim_OnGround, TocandoSuelo());
     }
 
-    // Cambia la orientacion hacia donde mira el personaje
+   
 
-    
+    private void Escalar()
+    {
+        if ((_desiredDirection.y != 0|| climbing)&&(_boxCollider.IsTouchingLayers(LayerMask.GetMask("Ladder")))) 
+        {
+            Vector2 velocidadsubida = new Vector2(_rigidbody.velocity.x, _desiredDirection.y * speedClimb);
+            _rigidbody.velocity = velocidadsubida;
+            _rigidbody.gravityScale = 0;
+            climbing = true;
+        }
+        else
+        {
+            _rigidbody.gravityScale = initialgravity;
+            climbing=false;
+        }
+        if (TocandoSuelo())
+        {
+            climbing = false;
+        }
+
+        _anim.SetBool(anim_climbing, climbing);
+
+    }
 
 }
