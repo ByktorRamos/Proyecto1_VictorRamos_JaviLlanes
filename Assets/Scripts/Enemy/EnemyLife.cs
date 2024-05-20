@@ -15,10 +15,11 @@ public class EnemyLife : MonoBehaviour
     {
         _anim = GetComponent<Animator>();
         invulnerabilityTimeinitial = invulnerabilityTime;
+        VictoryCondition.instance.RegisterEnemy(this);
     }
+
     private void Update()
     {
-
         if (isInvulnerable)
         {
             invulnerabilityTime -= Time.deltaTime;
@@ -54,6 +55,7 @@ public class EnemyLife : MonoBehaviour
     {
         _anim.SetTrigger("Die");
         yield return new WaitForSeconds(_anim.GetCurrentAnimatorStateInfo(0).length);
+        VictoryCondition.instance.UnregisterEnemy(this);
         Destroy(gameObject);
     }
 }

@@ -335,7 +335,7 @@ MonoBehaviour:
   contrfloor: {fileID: 1496266584672112196}
   controbstacle: {fileID: 1716970489486639616}
   chasespeed: 2
-  chaseRange: 7
+  chaseRange: 10
   bullet: {fileID: 2001450654477768924, guid: c2044ae2fd718844680d75af9856d923, type: 3}
   bulletpos: {fileID: 848352670056255581}
   shootcooldawn: 2
@@ -402,5 +402,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65a5a439f0fbc7d4781db5379d4550de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 10
+  life: 25
   invulnerabilityTime: 1
