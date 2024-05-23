@@ -324,7 +324,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1012373188}
         m_TargetAssemblyTypeName: Buttons, Assembly-CSharp
-        m_MethodName: PlayButton
+        m_MethodName: ReplayButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2185,8 +2185,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -4054314838039595767, guid: 669a4ddc39cbdc14ebdd6db04c2f0c79, type: 3}
       propertyPath: life
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -4054314838039595767, guid: 669a4ddc39cbdc14ebdd6db04c2f0c79, type: 3}
+      propertyPath: dieMenu
+      value: 
+      objectReference: {fileID: 1012373183}
     - target: {fileID: 1939415862266792535, guid: 669a4ddc39cbdc14ebdd6db04c2f0c79, type: 3}
       propertyPath: arm
       value: 

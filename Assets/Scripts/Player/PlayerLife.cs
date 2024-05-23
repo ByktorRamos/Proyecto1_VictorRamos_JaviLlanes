@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerLife : MonoBehaviour
 {
+    public GameObject dieMenu;
     public int life = 10;
     public float invulnerabilityTime;
     private float invulnerabilityTimeinitial;
@@ -45,6 +46,9 @@ public class PlayerLife : MonoBehaviour
         {
             arm.SetActive(false);
             StartCoroutine(Die());
+            dieMenu.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
         else
         {
@@ -57,7 +61,8 @@ public class PlayerLife : MonoBehaviour
     {
         _anim.SetTrigger("Die");
         yield return new WaitForSeconds(_anim.GetCurrentAnimatorStateInfo(0).length);
-        Destroy(gameObject);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        this.gameObject.SetActive(false);
+       // Destroy(gameObject);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

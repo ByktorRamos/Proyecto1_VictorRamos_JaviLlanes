@@ -16,5 +16,18 @@ public class Buttons : MonoBehaviour
     public void QuitGame() 
     {
         Application.Quit();
+        UnlockCursor();
+    }
+    private void UnlockCursor()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+    public void ReplayButton()
+    {
+
+        SceneManager.LoadScene("MainScene");
+        this.gameObject.SetActive(false);
+
     }
 }
