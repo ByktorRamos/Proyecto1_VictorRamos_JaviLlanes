@@ -7,6 +7,7 @@ public class Buttons : MonoBehaviour
 {
     public void PlayButton()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene("MainScene");
     }
     public void MenuButton()
@@ -28,6 +29,8 @@ public class Buttons : MonoBehaviour
 
         SceneManager.LoadScene("MainScene");
         this.gameObject.SetActive(false);
+        Time.timeScale = 1f;
 
     }
+   
 }

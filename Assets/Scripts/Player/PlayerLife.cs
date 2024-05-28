@@ -44,9 +44,7 @@ public class PlayerLife : MonoBehaviour
 
         if (life <= 0)
         {
-            arm.SetActive(false);
             StartCoroutine(Die());
-            dieMenu.SetActive(true);
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
@@ -59,10 +57,19 @@ public class PlayerLife : MonoBehaviour
 
     private IEnumerator Die()
     {
+        arm.SetActive(false);
         _anim.SetTrigger("Die");
         yield return new WaitForSeconds(_anim.GetCurrentAnimatorStateInfo(0).length);
         this.gameObject.SetActive(false);
-       // Destroy(gameObject);
+        PausarJuego();
+        // Destroy(gameObject);
         //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+    private void PausarJuego()
+    {
+        Time.timeScale = 0f;
+        dieMenu.SetActive(true);
+
+    }
+
 }
