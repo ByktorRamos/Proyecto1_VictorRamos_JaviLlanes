@@ -18,16 +18,14 @@ public class BulletEnemy : MonoBehaviour
     }
     
 
-    private void OnTriggerEnter2D(Collider2D collision)
+   
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.TryGetComponent(out PlayerLife playerLife))
+        if (collision.collider.TryGetComponent(out PlayerLife playerLife))
         {
             playerLife.TakeDamage(damage);
             Destroy(this.gameObject);
         }
-    }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
         Destroy(this.gameObject);
 
     }

@@ -141,9 +141,10 @@ GameObject:
   - component: {fileID: 7433979568595741653}
   - component: {fileID: 2323507863220733205}
   - component: {fileID: 7343955252666273935}
+  - component: {fileID: 1730795211118051709}
   m_Layer: 8
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -334,7 +335,7 @@ MonoBehaviour:
   contrfloor: {fileID: 1496266584672112196}
   controbstacle: {fileID: 1716970489486639616}
   chasespeed: 2
-  chaseRange: 7
+  chaseRange: 10
   bullet: {fileID: 2001450654477768924, guid: c2044ae2fd718844680d75af9856d923, type: 3}
   bulletpos: {fileID: 848352670056255581}
   shootcooldawn: 2
@@ -389,3 +390,17 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
+--- !u!114 &1730795211118051709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8687056277628046987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65a5a439f0fbc7d4781db5379d4550de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  life: 25
+  invulnerabilityTime: 1

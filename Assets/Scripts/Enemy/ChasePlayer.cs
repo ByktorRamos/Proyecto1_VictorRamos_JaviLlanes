@@ -6,7 +6,6 @@ public class ChasePlayer : MonoBehaviour
 
     public Transform bulletpos;
     public Transform espalda;
-    public float distancia;
     public LayerMask playerLayer;
 
 
