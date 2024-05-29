@@ -2,9 +2,8 @@ using UnityEngine;
 
 public class PlayerMovment : MonoBehaviour
 {
-
+    public AudioClip jumpAudio;
     public GameObject arm;
-    ShootingGun _shooting;
     [SerializeField]
     private string _horizontalInputAxis = "Horizontal";
     [SerializeField]
@@ -47,7 +46,6 @@ public class PlayerMovment : MonoBehaviour
         _boxCollider = GetComponent<BoxCollider2D>();
         initialgravity = _rigidbody.gravityScale;
         
-        _shooting= GetComponent<ShootingGun>();
     }
 
     void Update()
@@ -114,6 +112,7 @@ public class PlayerMovment : MonoBehaviour
         {
             _rigidbody.AddForce(Vector2.up * jumpForce,ForceMode2D.Impulse);
             _anim.SetTrigger(anim_jump);
+            AudioManager.Instance.ReproducirSonido(jumpAudio);
         }
         _anim.SetBool(anim_OnGround, TocandoSuelo());
     }

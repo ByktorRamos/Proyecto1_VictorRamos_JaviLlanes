@@ -14,6 +14,7 @@ public class PlayerLife : MonoBehaviour
     Animator _anim;
     public GameObject arm;
     public AudioClip recivedamageclip;
+    public AudioClip DeathClip;
     private void Start()
     {
         _anim=GetComponent<Animator>();
@@ -46,6 +47,7 @@ public class PlayerLife : MonoBehaviour
 
         if (life <= 0)
         {
+            AudioManager.Instance.ReproducirSonido(DeathClip);
             StartCoroutine(Die());
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;

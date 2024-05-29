@@ -6,17 +6,14 @@ public class ShootingGun : MonoBehaviour
 {
     public AudioClip shootClip;
     public Transform mira;
-
     public Transform arm;
     public SpriteRenderer gunSR;
     public Transform bulletPos;
     public int speedball;
     public float cooldawnShoot = 0.5f;
     Vector3 targetRotation;
-
     public GameObject ball;
     Vector3 finaltarget;
-
     private PlayerMovment playerMovement;
     private bool canShoot = true;
 
@@ -28,6 +25,11 @@ public class ShootingGun : MonoBehaviour
 
     private void Update()
     {
+        if (GamePauseManager.isPaused)
+        {
+            return;
+        }
+
         mira.position = Camera.main.ScreenToWorldPoint(
             new Vector3(Input.mousePosition.x, Input.mousePosition.y, -Camera.main.transform.position.z));
 
@@ -36,12 +38,11 @@ public class ShootingGun : MonoBehaviour
 
         if (!playerMovement.mirandoDerecha)
         {
-            angle += 180; 
+            angle += 180;
         }
 
         arm.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
-        
         if (angle > 90 || angle < -90)
             gunSR.flipY = true;
         else
@@ -56,10 +57,11 @@ public class ShootingGun : MonoBehaviour
     private IEnumerator ShootWithCooldown()
     {
         Shoot();
-        canShoot = false; 
+        canShoot = false;
         yield return new WaitForSeconds(cooldawnShoot);
-        canShoot = true; 
+        canShoot = true;
     }
+
     void Shoot()
     {
         AudioManager.Instance.ReproducirSonido(shootClip);
@@ -67,9 +69,7 @@ public class ShootingGun : MonoBehaviour
         targetRotation.z = 0;
         finaltarget = (targetRotation - transform.position).normalized;
 
-
         Ball.GetComponent<Rigidbody2D>().AddForce(finaltarget * speedball, ForceMode2D.Impulse);
-
         Destroy(Ball, 5f);
     }
 }

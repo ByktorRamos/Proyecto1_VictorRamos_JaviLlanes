@@ -32,5 +32,5 @@ public class AudioManager : MonoBehaviour
     public void ReproducirSonido(AudioClip audio)
     { 
     audioSource.PlayOneShot(audio); 
-}
+    }
 }
