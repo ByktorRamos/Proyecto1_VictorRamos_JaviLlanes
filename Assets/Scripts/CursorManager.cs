@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CursorManager : MonoBehaviour
 {
-
     private void Start()
     {
         LockCursor();
@@ -12,28 +11,26 @@ public class CursorManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (GamePauseManager.isPaused)
         {
             UnlockCursor();
+            return;
         }
 
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            LockCursor();
-        }
+        
     }
 
-    private void LockCursor()
+   
+
+    public static void LockCursor()
     {
-      
-        Cursor.lockState = CursorLockMode.Confined; 
-        Cursor.visible = false; 
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = false;
     }
 
-    private void UnlockCursor()
+    public static void UnlockCursor()
     {
-        Cursor.lockState = CursorLockMode.None; 
-        Cursor.visible = true; 
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 }

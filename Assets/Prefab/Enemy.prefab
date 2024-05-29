@@ -386,7 +386,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletpos: {fileID: 848352670056255581}
   espalda: {fileID: 8230640560672639513}
-  distancia: 5
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -404,3 +403,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   life: 25
   invulnerabilityTime: 1
+  recivehitclip: {fileID: 8300000, guid: fc0ea9ff6e497bd46902689127b79365, type: 3}

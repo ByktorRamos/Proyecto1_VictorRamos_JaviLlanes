@@ -4,37 +4,50 @@ using UnityEngine;
 
 public class GamePauseManager : MonoBehaviour
 {
-    private bool isPaused = false;
+    public GameObject menu;
+    public static bool isPaused = false;
+
+    private void Start()
+    {
+        isPaused = false;
+        Time.timeScale = 1f;
+        menu.SetActive(false);
+    }
 
     void Update()
     {
-       
         if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (!isPaused)
-            {
-                PauseGame();
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.Return))
         {
             if (isPaused)
             {
                 ResumeGame();
             }
+            else
+            {
+                PauseGame();
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Return) && isPaused)
+        {
+            ResumeGame();
         }
     }
 
-    void PauseGame()
+    public void PauseGame()
     {
-        Time.timeScale = 0f; 
+        menu.SetActive(true);
+        Time.timeScale = 0f;
         isPaused = true;
+        CursorManager.UnlockCursor(); // Llamar a un método estático para desbloquear el cursor
     }
 
-    void ResumeGame()
+    public void ResumeGame()
     {
-        Time.timeScale = 1f; // Reanuda el tiempo del juego
+        menu.SetActive(false);
+        Time.timeScale = 1f;
         isPaused = false;
+        CursorManager.LockCursor(); // Llamar a un método estático para bloquear el cursor
     }
+
 }

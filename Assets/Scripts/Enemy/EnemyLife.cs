@@ -10,6 +10,8 @@ public class EnemyLife : MonoBehaviour
     private float invulnerabilityTimeinitial;
     private bool isInvulnerable = false;
     Animator _anim;
+    public AudioClip recivehitclip;
+
 
     private void Start()
     {
@@ -39,6 +41,8 @@ public class EnemyLife : MonoBehaviour
 
         _anim.SetTrigger("ReciveDamage");
         life -= damage;
+        AudioManager.Instance.ReproducirSonido(recivehitclip);
+
 
         if (life <= 0)
         {

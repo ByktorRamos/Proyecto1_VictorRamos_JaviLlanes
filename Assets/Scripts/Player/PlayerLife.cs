@@ -6,12 +6,15 @@ using UnityEngine.SceneManagement;
 
 public class PlayerLife : MonoBehaviour
 {
+    public GameObject dieMenu;
     public int life = 10;
     public float invulnerabilityTime;
     private float invulnerabilityTimeinitial;
     private bool isInvulnerable = false;
     Animator _anim;
     public GameObject arm;
+    public AudioClip recivedamageclip;
+    public AudioClip DeathClip;
     private void Start()
     {
         _anim=GetComponent<Animator>();
@@ -40,11 +43,14 @@ public class PlayerLife : MonoBehaviour
 
         _anim.SetTrigger("ReciveDamage");
         life -= damage;
+        AudioManager.Instance.ReproducirSonido(recivedamageclip);
 
         if (life <= 0)
         {
-            arm.SetActive(false);
+            AudioManager.Instance.ReproducirSonido(DeathClip);
             StartCoroutine(Die());
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
         else
         {
@@ -55,9 +61,19 @@ public class PlayerLife : MonoBehaviour
 
     private IEnumerator Die()
     {
+        arm.SetActive(false);
         _anim.SetTrigger("Die");
         yield return new WaitForSeconds(_anim.GetCurrentAnimatorStateInfo(0).length);
-        Destroy(gameObject);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        this.gameObject.SetActive(false);
+        PausarJuego();
+        // Destroy(gameObject);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+    private void PausarJuego()
+    {
+        Time.timeScale = 0f;
+        dieMenu.SetActive(true);
+
+    }
+
 }
