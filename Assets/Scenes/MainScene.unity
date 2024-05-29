@@ -736,7 +736,7 @@ AudioSource:
   m_GameObject: {fileID: 180381917}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 6858993203997658501, guid: 06df88e8a95166a49a6c22b2e30b92ed, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -864,10 +864,10 @@ AudioSource:
   m_GameObject: {fileID: 189187109}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 7472449781321507185, guid: 06df88e8a95166a49a6c22b2e30b92ed, type: 2}
   m_audioClip: {fileID: 8300000, guid: 10703b6825037e3458f193ddbbde8f88, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.494
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -2048,6 +2048,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cee2c04a36ebd634298997558dfb601c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  winclip: {fileID: 8300000, guid: cd12836b19bdc174596a49d6aed119de, type: 3}
 --- !u!61 &955251740
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3312,6 +3313,14 @@ PrefabInstance:
       propertyPath: dieMenu
       value: 
       objectReference: {fileID: 1012373183}
+    - target: {fileID: -4054314838039595767, guid: 669a4ddc39cbdc14ebdd6db04c2f0c79, type: 3}
+      propertyPath: audioManager
+      value: 
+      objectReference: {fileID: 180381918}
+    - target: {fileID: -4054314838039595767, guid: 669a4ddc39cbdc14ebdd6db04c2f0c79, type: 3}
+      propertyPath: recivedamageclip
+      value: 
+      objectReference: {fileID: 8300000, guid: a3114ce49b96b9b44940b592ca8a689e, type: 3}
     - target: {fileID: 802863267461008541, guid: 669a4ddc39cbdc14ebdd6db04c2f0c79, type: 3}
       propertyPath: m_Size.y
       value: 0.33756632
@@ -3392,6 +3401,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8824888641732675932, guid: 669a4ddc39cbdc14ebdd6db04c2f0c79, type: 3}
+      propertyPath: shootClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 7a39632edbdb7774b93a13b9a74384d0, type: 3}
     - target: {fileID: 8824888641732675932, guid: 669a4ddc39cbdc14ebdd6db04c2f0c79, type: 3}
       propertyPath: speedball
       value: 15

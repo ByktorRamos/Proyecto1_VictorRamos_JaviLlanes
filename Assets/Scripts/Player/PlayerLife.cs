@@ -13,7 +13,7 @@ public class PlayerLife : MonoBehaviour
     private bool isInvulnerable = false;
     Animator _anim;
     public GameObject arm;
-    public AudioManager audioManager;
+    public AudioClip recivedamageclip;
     private void Start()
     {
         _anim=GetComponent<Animator>();
@@ -42,7 +42,7 @@ public class PlayerLife : MonoBehaviour
 
         _anim.SetTrigger("ReciveDamage");
         life -= damage;
-
+        AudioManager.Instance.ReproducirSonido(recivedamageclip);
 
         if (life <= 0)
         {

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ShootingGun : MonoBehaviour
 {
+    public AudioClip shootClip;
     public Transform mira;
 
     public Transform arm;
@@ -61,6 +62,7 @@ public class ShootingGun : MonoBehaviour
     }
     void Shoot()
     {
+        AudioManager.Instance.ReproducirSonido(shootClip);
         var Ball = Instantiate(ball, bulletPos.position, Quaternion.identity);
         targetRotation.z = 0;
         finaltarget = (targetRotation - transform.position).normalized;
