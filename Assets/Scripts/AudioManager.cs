@@ -16,14 +16,13 @@ public class AudioManager : MonoBehaviour
             Instance = this;
         } else
         {
-            Debug.Log("Cuidado! Más de un AudioManager en escena. ");
+            Debug.Log("Más de un AudioManager en escena. ");
         }
 
 
     }
 
 
-    // Start is called before the first frame update
     void Start()
     {
         audioSource = GetComponent<AudioSource>();

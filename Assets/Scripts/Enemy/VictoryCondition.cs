@@ -20,7 +20,7 @@ public class VictoryCondition : MonoBehaviour
             Destroy(gameObject);
         }
 
-        // Desactiva el punto de victoria al inicio
+        
         if (victoryPoint != null)
         {
             victoryPoint.SetActive(false);

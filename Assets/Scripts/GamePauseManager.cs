@@ -4,9 +4,25 @@ using UnityEngine;
 
 public class GamePauseManager : MonoBehaviour
 {
+    public static GamePauseManager instance;
+
     public GameObject menu;
+    public GameObject dieMenu;
     public static bool isPaused = false;
 
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+       
+    }
     private void Start()
     {
         isPaused = false;
@@ -39,7 +55,14 @@ public class GamePauseManager : MonoBehaviour
         menu.SetActive(true);
         Time.timeScale = 0f;
         isPaused = true;
-        CursorManager.UnlockCursor(); // Llamar a un método estático para desbloquear el cursor
+        CursorManager.UnlockCursor(); 
+    }
+    public void DieGame()
+    {
+        
+        dieMenu.SetActive(true);
+        Time.timeScale = 0f;
+        CursorManager.UnlockCursor();
     }
 
     public void ResumeGame()
@@ -47,7 +70,7 @@ public class GamePauseManager : MonoBehaviour
         menu.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
-        CursorManager.LockCursor(); // Llamar a un método estático para bloquear el cursor
+        CursorManager.LockCursor(); 
     }
 
 }
