@@ -84,7 +84,7 @@ public class EnemyMachine : MonoBehaviour
             case EnemyStates.PATROL:
                 if (distanceToPlayer < chaseRange)
                 {
-                    Debug.Log("Chasea despues de patrol");
+                   // Debug.Log("Chasea despues de patrol");
 
                     ChangeEnemyState(EnemyStates.CHASE);
                 } 
@@ -92,12 +92,12 @@ public class EnemyMachine : MonoBehaviour
             case EnemyStates.CHASE:
                 if (distanceToPlayer < attackrange)
                 {
-                    Debug.Log("Attakea");
+                   // Debug.Log("Attakea");
                     ChangeEnemyState(EnemyStates.DISTANCEATTACK);
                 }
                 else if (distanceToPlayer > chaseRange )
                 {
-                    Debug.Log("patrolea");
+                   // Debug.Log("patrolea");
 
                     ChangeEnemyState(EnemyStates.PATROL);
                 }
@@ -105,7 +105,7 @@ public class EnemyMachine : MonoBehaviour
             case EnemyStates.DISTANCEATTACK:
                 if (distanceToPlayer > attackrange)
                 {
-                    Debug.Log("Chasea despues de attackear");
+                    //Debug.Log("Chasea despues de attackear");
 
                     ChangeEnemyState(EnemyStates.CHASE);
                 }
