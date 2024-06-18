@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CursorManager : MonoBehaviour
@@ -17,11 +15,9 @@ public class CursorManager : MonoBehaviour
             return;
         }
 
-        
     }
 
    
-
     public static void LockCursor()
     {
         Cursor.lockState = CursorLockMode.Confined;

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GamePauseManager : MonoBehaviour
@@ -19,7 +17,7 @@ public class GamePauseManager : MonoBehaviour
         }
         else
         {
-            Destroy(gameObject);
+           // Destroy(this.gameObject);
         }
        
     }

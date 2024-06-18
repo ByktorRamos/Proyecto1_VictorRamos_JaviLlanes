@@ -8,8 +8,9 @@ public class DistanceAttack : MonoBehaviour
     private bool rangeplayer;
     private bool rangeplayerdEspalda;
     public LayerMask playerLayer;
-    
 
+    [SerializeField]
+    private string _shoot = "Shoot";
     public Transform bulletpos;
     public Transform espalda;
     public float detectionEsplada;
@@ -18,7 +19,7 @@ public class DistanceAttack : MonoBehaviour
 
    
 
-    public void AttackDistance(Transform bulletpos, float attackRange, float shootcooldown, GameObject bullet, Animator _anim, ref bool mirandoder)
+    public void AttackDistance(Transform bulletpos, float shootcooldown, GameObject bullet, Animator _anim, ref bool mirandoder)
     {
         rangeplayer = Physics2D.Raycast(bulletpos.position, transform.right, detectionrange, playerLayer);
         rangeplayerdEspalda = Physics2D.Raycast(espalda.position, transform.right * -1, detectionEsplada, playerLayer);
@@ -61,7 +62,7 @@ public class DistanceAttack : MonoBehaviour
         if (timer > shootcooldown)
         {
             timer = 0;
-            _anim.SetTrigger("Shoot");
+            _anim.SetTrigger(_shoot);
             Instantiate(bullet, bulletpos.position, bulletpos.rotation);
         }
     }

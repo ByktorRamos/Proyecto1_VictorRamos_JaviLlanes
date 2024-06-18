@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class EnemyLife : MonoBehaviour
 {
@@ -11,7 +9,10 @@ public class EnemyLife : MonoBehaviour
     private bool isInvulnerable = false;
     Animator _anim;
     public AudioClip recivehitclip;
-
+    [SerializeField]
+    private string _reciveDamage = "ReciveDamage";
+    [SerializeField]
+    private string _die = "Die";
 
     private void Start()
     {
@@ -39,7 +40,7 @@ public class EnemyLife : MonoBehaviour
             return;
         }
 
-        _anim.SetTrigger("ReciveDamage");
+        _anim.SetTrigger(_reciveDamage);
         life -= damage;
         AudioManager.Instance.ReproducirSonido(recivehitclip);
 
@@ -57,7 +58,7 @@ public class EnemyLife : MonoBehaviour
 
     private IEnumerator Die()
     {
-        _anim.SetTrigger("Die");
+        _anim.SetTrigger(_die);
         yield return new WaitForSeconds(_anim.GetCurrentAnimatorStateInfo(0).length);
         VictoryCondition.instance.UnregisterEnemy(this);
         Destroy(gameObject);

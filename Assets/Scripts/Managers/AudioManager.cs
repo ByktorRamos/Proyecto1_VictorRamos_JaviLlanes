@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
@@ -19,9 +17,7 @@ public class AudioManager : MonoBehaviour
             Debug.Log("Más de un AudioManager en escena. ");
         }
 
-
     }
-
 
     void Start()
     {

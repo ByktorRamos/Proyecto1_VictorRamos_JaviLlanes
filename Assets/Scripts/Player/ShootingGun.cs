@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ShootingGun : MonoBehaviour
@@ -19,7 +18,6 @@ public class ShootingGun : MonoBehaviour
 
     private void Start()
     {
-        // Obtener la referencia al script de movimiento del jugador
         playerMovement = GetComponentInParent<PlayerMovment>();
     }
 
