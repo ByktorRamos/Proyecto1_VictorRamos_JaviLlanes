@@ -1,12 +1,8 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PlayerLife : MonoBehaviour
 {
-    public GameObject dieMenu;
     public int life = 10;
     public float invulnerabilityTime;
     private float invulnerabilityTimeinitial;
@@ -15,6 +11,11 @@ public class PlayerLife : MonoBehaviour
     public GameObject arm;
     public AudioClip recivedamageclip;
     public AudioClip DeathClip;
+
+    [SerializeField]
+    private string _reciveDamage = "ReciveDamage";
+    [SerializeField]
+    private string _die = "Die";
     private void Start()
     {
         _anim=GetComponent<Animator>();
@@ -35,13 +36,12 @@ public class PlayerLife : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        // Si el jugador esta invulnerable, sal de la funcion sin recibir damage
         if (isInvulnerable)
         {
             return;
         }
 
-        _anim.SetTrigger("ReciveDamage");
+        _anim.SetTrigger(_reciveDamage);
         life -= damage;
         AudioManager.Instance.ReproducirSonido(recivedamageclip);
 
@@ -62,18 +62,12 @@ public class PlayerLife : MonoBehaviour
     private IEnumerator Die()
     {
         arm.SetActive(false);
-        _anim.SetTrigger("Die");
+        _anim.SetTrigger(_die);
         yield return new WaitForSeconds(_anim.GetCurrentAnimatorStateInfo(0).length);
         this.gameObject.SetActive(false);
-        PausarJuego();
-        // Destroy(gameObject);
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        GamePauseManager.instance.DieGame();
+        
     }
-    private void PausarJuego()
-    {
-        Time.timeScale = 0f;
-        dieMenu.SetActive(true);
-
-    }
+    
 
 }
