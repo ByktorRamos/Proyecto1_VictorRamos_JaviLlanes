@@ -8,6 +8,8 @@ public class GamePauseManager : MonoBehaviour
     public GameObject dieMenu;
     public static bool isPaused = false;
 
+    public KeyCode k_escape = KeyCode.Escape;
+
     private void Awake()
     {
         if (instance == null)
@@ -30,7 +32,7 @@ public class GamePauseManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(k_escape))
         {
             if (isPaused)
             {
