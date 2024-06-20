@@ -2,14 +2,6 @@ using UnityEngine;
 
 public class ChasePlayer : MonoBehaviour
 {
-   
-
-    public Transform bulletpos;
-    public Transform espalda;
-    public LayerMask playerLayer;
-
-
-
     public void Chaseplayers(float speed, GameObject player, Rigidbody2D rb)
     {
        

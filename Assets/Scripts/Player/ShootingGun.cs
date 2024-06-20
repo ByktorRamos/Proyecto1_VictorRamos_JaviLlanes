@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ShootingGun : MonoBehaviour
@@ -17,9 +16,12 @@ public class ShootingGun : MonoBehaviour
     private PlayerMovment playerMovement;
     private bool canShoot = true;
 
+    [Header("Controles")]
+    public KeyCode k_mouse0 = KeyCode.Mouse0;
+
+
     private void Start()
     {
-        // Obtener la referencia al script de movimiento del jugador
         playerMovement = GetComponentInParent<PlayerMovment>();
     }
 
@@ -48,7 +50,7 @@ public class ShootingGun : MonoBehaviour
         else
             gunSR.flipY = false;
 
-        if (Input.GetKeyDown(KeyCode.Mouse0) && canShoot)
+        if (Input.GetKeyDown(k_mouse0) && canShoot)
         {
             StartCoroutine(ShootWithCooldown());
         }

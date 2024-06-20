@@ -17,6 +17,10 @@ public class EnemyMachine : MonoBehaviour
     ChasePlayer _chaseplayer;
     Patrol _patrol;
     DistanceAttack _distanceattack;
+    [SerializeField]
+    private string _walk = "Walk"; 
+    [SerializeField]
+    private string _tagPlayer = "Player";
 
     [Header("Patrol")]
     public float patrolspeed;
@@ -40,13 +44,13 @@ public class EnemyMachine : MonoBehaviour
     private void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
-        _player = GameObject.FindGameObjectWithTag("Player");
+        _player = GameObject.FindGameObjectWithTag(_tagPlayer);
         _anim = GetComponent<Animator>();
 
         _patrol = GetComponent<Patrol>();
         _chaseplayer = GetComponent<ChasePlayer>();
         _distanceattack = GetComponent<DistanceAttack>();
-        _patrol.speed = patrolspeed;
+        _patrol.patrolspeed = patrolspeed;
         ExecuteState();
     }
 
@@ -61,16 +65,16 @@ public class EnemyMachine : MonoBehaviour
         switch (_currentEnemyState)
         {
             case EnemyStates.PATROL:
-                _anim.SetBool("Walk", true);
+                _anim.SetBool(_walk, true);
                 _patrol.Patrolfunc(layerFloor, layerobstacle, contrfloor, controbstacle, _rb, ref mirandoder);
                 break;
             case EnemyStates.CHASE:
-                _anim.SetBool("Walk", true);
+                _anim.SetBool(_walk, true);
                 _chaseplayer.Chaseplayers(chasespeed, _player, _rb);
                 break;
             case EnemyStates.DISTANCEATTACK:
-                _anim.SetBool("Walk", false);
-                _distanceattack.AttackDistance(bulletpos, attackrange, shootcooldawn, bullet, _anim, ref mirandoder);
+                _anim.SetBool(_walk, false);
+                _distanceattack.AttackDistance(bulletpos, shootcooldawn, bullet, _anim, ref mirandoder);
                 break;
         }
     }
@@ -84,29 +88,22 @@ public class EnemyMachine : MonoBehaviour
             case EnemyStates.PATROL:
                 if (distanceToPlayer < chaseRange)
                 {
-                   // Debug.Log("Chasea despues de patrol");
-
                     ChangeEnemyState(EnemyStates.CHASE);
                 } 
                 break;
             case EnemyStates.CHASE:
                 if (distanceToPlayer < attackrange)
                 {
-                   // Debug.Log("Attakea");
                     ChangeEnemyState(EnemyStates.DISTANCEATTACK);
                 }
                 else if (distanceToPlayer > chaseRange )
                 {
-                   // Debug.Log("patrolea");
-
                     ChangeEnemyState(EnemyStates.PATROL);
                 }
                 break;
             case EnemyStates.DISTANCEATTACK:
                 if (distanceToPlayer > attackrange)
                 {
-                    //Debug.Log("Chasea despues de attackear");
-
                     ChangeEnemyState(EnemyStates.CHASE);
                 }
                 break;

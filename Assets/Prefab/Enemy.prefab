@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8230640560672639513}
   m_Layer: 0
-  m_Name: Detras
+  m_Name: DetectBehind
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -325,6 +325,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a44386a3addc5d34fb1aac417de7b0bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _walk: Walk
+  _tagPlayer: Player
   patrolspeed: 3
   layerFloor:
     serializedVersion: 2
@@ -352,7 +354,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c8a15b9f9bebfb439ba7042a0731edd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
+  patrolspeed: 0
 --- !u!114 &2323507863220733205
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -368,6 +370,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
+  _shoot: Shoot
   bulletpos: {fileID: 848352670056255581}
   espalda: {fileID: 8230640560672639513}
   detectionEsplada: 4
@@ -384,11 +387,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 518ba54571309644eb391b7819013126, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletpos: {fileID: 848352670056255581}
-  espalda: {fileID: 8230640560672639513}
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 8
 --- !u!114 &1730795211118051709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -404,3 +402,5 @@ MonoBehaviour:
   life: 25
   invulnerabilityTime: 1
   recivehitclip: {fileID: 8300000, guid: fc0ea9ff6e497bd46902689127b79365, type: 3}
+  _reciveDamage: ReciveDamage
+  _die: Die
